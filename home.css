@@ -32,21 +32,6 @@
     font-weight: 300;
 }
 
-.browse-all {
-    color: #666;
-    text-decoration: none;
-    background-color: white;
-    border: solid 0.01px  #e2e2e2;
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-family: "Manrope", sans-serif;
-    font-weight: 800;
-    font-size: 10px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
 
 .hear-icon {
     width: 30px;
@@ -69,11 +54,6 @@
     margin-top: 25%;
     font-size: 15px;
     text-align: center;
-}
-.browse-all:hover {
-    background-color: #027A36;
-    color: white;
-    transition-duration: 700ms;
 }
 
 .book-grid {
@@ -121,7 +101,7 @@
     color: #666;
     align-items: center;
     font-family: "Manrope", sans-serif;
-    font-size: 9px;
+    font-size: 11px;
     margin-bottom: 5px;
     margin-left: 30%;
     text-decoration: underline;
