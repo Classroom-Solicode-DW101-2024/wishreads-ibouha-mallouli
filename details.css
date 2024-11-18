@@ -56,7 +56,7 @@
     text-align: center;
 }
 
-.book-grid {
+.related-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); /* Adjust minmax value */
     gap: 5px;
