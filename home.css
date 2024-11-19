@@ -27,7 +27,8 @@
 }
 
 .highlights-title {
-    font-size: 24px;
+    margin-top: 20px;
+    font-size: 28px;
     font-family: "Fraunces", serif;
     font-weight: 300;
 }
@@ -260,3 +261,4 @@
     background-color: #027a36;
     color: white;
 }
+

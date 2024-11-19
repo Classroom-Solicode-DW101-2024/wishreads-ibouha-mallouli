@@ -10,7 +10,7 @@ async function getBooks() {
   }
 }
 
-// Function to display books in the grid
+// Function to display books dynamically in the grid
 async function displayBooks() {
   const bookGrid = document.querySelector(".book-grid");
   // Get books from JSON file
