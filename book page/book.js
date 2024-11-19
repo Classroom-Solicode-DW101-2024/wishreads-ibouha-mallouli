@@ -1,34 +1,32 @@
-document.addEventListener("DOMContentLoaded", () => {
-    fetch('book.json') 
-        .then(response => response.json())
-        .then(data => {
-            const books = data.books;
-            const grid = document.querySelector(".related-grid");
+document
+  .addEventListener("DOMContentLoaded", () => {
+    // Get the student index from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const bookIndex = urlParams.get("bookIndex");
 
-            // Shuffle and pick 5 random books
-            const randomBooks = books.sort(() => 0.5 - Math.random()).slice(0, 5);
-            grid.innerHTML = '';
+    fetch("../book.json")
+      .then((response) => response.json())
+      .then((data) => {
+        const books = data.books;
+        const book = books[bookIndex];
+        const bookSection = document.querySelector(".book-section");
 
-            randomBooks.forEach(book => {
-                const card = document.createElement('a');
-                card.href = book.linkPDF;
-                card.classList.add('book-card');
-                card.target = "_blank"; 
-                card.innerHTML = `
-                    <img src="${book.cover}" alt="${book.title}" class="book-image">
-                    <div class="hear-icon">
-                        <i class="fa-regular fa-heart"></i>
-                    </div>
-                    <div class="book-rating">★★★★☆ <span>(4)</span></div>
-                    <h3 class="book-title">${book.title}</h3>
-                    <p class="book-author">${book.author.fullName}</p>
-                    <button class="read-book">Read Now</button>
+        bookSection.innerHTML = "";
+        bookSection.innerHTML = `
+                    <img src="${book.cover}" alt="">
+            <div class="book-info">
+                <h2 class="book-title">${book.title}</h2>
+                <p class="book-author"> <span>Author :</span>${book.author.fullName}</p>
+                <p class="book-description">${book.description}</p>
+                <hr>
+                <a class="readBtn"><i class="fa-brands fa-readme"></i> READ</a> <a class="hear-icon"><i class="fa-regular fa-heart"></i></a>
+
+            </div>
                 `;
 
-                grid.appendChild(card);
-            });
-        })
-        .catch(error => {
-            console.error("Error fetching books:", error);
-        });
-});
+        bookSection.appendChild(card);
+      });
+  })
+  .catch((error) => {
+    console.error("Error fetching books:", error);
+  });

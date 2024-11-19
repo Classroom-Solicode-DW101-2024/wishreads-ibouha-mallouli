@@ -8,10 +8,51 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="details.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <title>Document</title>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <nav class="nav-container">
+            <a href="/" class="logo">
+                <img src="../imgs/logo (1).svg" alt="Bokifa">
+            </a>
+            
+            <div class="search-container">
+                <select class="category-select">
+                    <option>All</option>
+                    <option>Fiction</option>
+                    <option>Biographies</option>
+                    <option>Cookbooks</option>
+                    <option>Novels</option>
+                    <option>Comics</option>
+                    <option>Educational</option>
+                    <option>Art</option>
+                    <option>History</option>
+                    <option>Science</option>
+                    <option>Technology</option>
+                </select>
+                <input type="text" class="search-input" placeholder="Search products...">
+                <button class="search-button"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+            </div>
+            
+            <div class="nav-right">            
+                <a href="/wishlist" class="nav-item">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="badge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="book-section">
+
+        </section>
+        
+    </main>
+
+    <!-- related books -->
     <section class="related">
         <div class="container">
             <div class="related-header">
@@ -51,5 +92,6 @@
         </footer>
 
         <script src="script.js"></script>
+        <script src="book.js"></script>
 </body>
 </html>
