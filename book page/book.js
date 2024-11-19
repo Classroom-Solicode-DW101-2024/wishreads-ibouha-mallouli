@@ -34,12 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const limitedRelatedBooks = relatedBooks.slice(0, 5);
 
       // Display related books
-      const relatedGrid = document.querySelector(".related-grid");
+      const relatedGrid = document.querySelector(".highlights-grid");
       relatedGrid.innerHTML = "";
 
       limitedRelatedBooks.forEach((relatedBook) => {
         const relatedCard = document.createElement("div");
-        relatedCard.classList.add("related-card");
+        relatedCard.classList.add("highlights-card");
         relatedCard.innerHTML = `
         <img src="${relatedBook.cover}" alt="${
           relatedBook.title
@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="hear-icon">
             <i class="fa-regular fa-heart"></i>
         </div>
-        <div class="book-rating">★★★★☆ <span>(4)</span></div>
         <h3 class="book-title">${relatedBook.title}</h3>
         <p class="book-author">${relatedBook.author.fullName}</p>
         <a href="details.html?bookIndex=${books.indexOf(
