@@ -1,0 +1,105 @@
+.wishlist-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    margin-bottom: 50px;
+}
+
+
+.empty-message {
+    margin-top: 20%;
+    font-size: 20px;
+    margin-bottom: 20%;
+}
+.wishlist-title {
+    font-size: 32px;
+    margin: 30px 0;
+    font-family: "Fraunces", serif;
+    font-weight: normal;
+}
+
+.book-list {
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+.book-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 1px 200px;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    gap: 20px;
+}
+
+.book-item:last-child {
+    border-bottom: none;
+}
+
+.book-cover {
+    width: 80px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.book-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.book-title {
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+.book-date {
+    font-size: 14px;
+    color: #666;
+}
+
+.vertical-divider {
+    width: 1px;
+    height: 135%;
+    background-color: #eee;
+    justify-self: center;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.read-btn {
+    background-color: #008450;
+    color: white;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.read-btn:hover {
+    background-color: #006940;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.delete-btn:hover {
+    background-color: #bb2d3b;
+}
