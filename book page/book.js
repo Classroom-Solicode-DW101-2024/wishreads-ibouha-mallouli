@@ -1,5 +1,4 @@
-document
-  .addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     // Get the student index from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const bookIndex = urlParams.get("bookIndex");
@@ -25,8 +24,10 @@ document
                 `;
 
         bookSection.appendChild(card);
-      });
+      });      
   })
   .catch((error) => {
     console.error("Error fetching books:", error);
   });
+
+

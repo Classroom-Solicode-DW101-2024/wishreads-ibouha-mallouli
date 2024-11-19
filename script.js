@@ -46,7 +46,12 @@ async function displayBooks() {
       htmlArray.push(`
               <div class="book-card">
                   <img src="${book.cover}" class="book-image" alt="${book.title}">
-                  <div class="hear-icon"><i class="fa-regular fa-heart"></i></div>
+                <div class="hear-icon" 
+                     data-title="${book.title}" 
+                     data-cover="${book.cover}" 
+                     data-releasedate="${book.releaseDate}">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
                   <h3 class="book-title">${book.title}</h3>
                   <p class="book-author">${book.author.fullName}</p>
                   
