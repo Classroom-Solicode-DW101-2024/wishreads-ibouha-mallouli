@@ -111,3 +111,134 @@ hr{
 }
 
 /* related books */
+
+/* Highlights Section */
+.highlights {
+    padding: 40px 0;
+}
+
+.highlights-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.highlights-title {
+    margin-top: 20px;
+    font-size: 28px;
+    font-family: "Fraunces", serif;
+    font-weight: 300;
+}
+
+
+.add-wishlist{
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    margin-top: -135%;
+    margin-left: 73%;
+    display: none;
+}
+
+.add-wishlist:hover{
+    background-color: #027A36;
+    color: white;
+}
+
+.add-wishlist i {
+    margin-left: 25%;
+    margin-top: 25%;
+    font-size: 15px;
+    text-align: center;
+}
+
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.highlights-card {
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    padding: 10px;
+    padding-bottom: 80px;
+    transition: box-shadow 0.3s ease; 
+}
+
+.highlights-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition-duration: 1.1s;
+    padding-bottom: 60px;
+}
+
+.book-image {
+    width: 100%;
+    height: 280px;
+    background: #f0f0f0;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.related-title {
+    font-family: "Fraunces", serif;
+    font-size: 1rem;
+    text-align: center;
+    overflow: hidden;
+    line-height: 26px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.related-author{
+    color: #666;
+    align-items: center;
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    margin-bottom: 5px;
+    margin-left: 30%;
+    text-decoration: underline;
+}
+
+.related-image {  
+    width: 100%;  
+    height: 280px;  
+    background: #f0f0f0;  
+    border-radius: 8px;  
+    position: relative;  
+}  
+
+.related-read-book {
+    display: none;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 20px;
+    background-color: #027A36;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: "Manrope", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.highlights-card:hover .related-read-book,
+.highlights-card:hover .add-wishlist{
+    display: block;
+    transition: all .5s ease;
+}
+
+.related-read-book:hover {
+    background-color: #404040; 
+}

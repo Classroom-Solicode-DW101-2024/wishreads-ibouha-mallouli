@@ -116,27 +116,6 @@
     position: relative;  
 }  
 
-.book-rating {  
-    display: flex;  
-    position: absolute; 
-    align-items: center;
-    font-size: 13px;  
-    justify-content: center;  
-    background-color: #fff;  
-    border-radius: 20px;
-    padding: 3px 5px;
-    width: 115px;  
-    height: 25px;   
-    margin-top: -11.4%;
-    margin-left: 17.5%;
-    color: #e2bb80;
-}
-
-.book-rating span {
-    font-size: 10px;
-    color: #000;
-    margin-left: 5px;
-}
 .read-book {
     display: none;
     position: absolute;

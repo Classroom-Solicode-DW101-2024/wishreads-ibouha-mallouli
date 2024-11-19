@@ -43,15 +43,15 @@ document.addEventListener("DOMContentLoaded", () => {
         relatedCard.innerHTML = `
         <img src="${relatedBook.cover}" alt="${
           relatedBook.title
-        }" class="book-image">
-        <div class="hear-icon">
+        }" class="related-image">
+        <div class="add-wishlist">
             <i class="fa-regular fa-heart"></i>
         </div>
-        <h3 class="book-title">${relatedBook.title}</h3>
-        <p class="book-author">${relatedBook.author.fullName}</p>
+        <h3 class="related-title">${relatedBook.title}</h3>
+        <p class="related-author">${relatedBook.author.fullName}</p>
         <a href="details.html?bookIndex=${books.indexOf(
           relatedBook
-        )}" class="read-book">View Details</a>
+        )}" class="related-read-book" >Details</a>
     `;
         relatedGrid.appendChild(relatedCard);
       });
