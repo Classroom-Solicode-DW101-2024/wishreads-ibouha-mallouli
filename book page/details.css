@@ -48,6 +48,15 @@ main{
     color: #999;
     margin-right: 10px;
 }
+.book-category{
+    border: #027A36 1px solid;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+
+
+}
 
 .book-description{
     font-size: 15px;

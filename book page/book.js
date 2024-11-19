@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
+document
+  .addEventListener("DOMContentLoaded", () => {
     // Get the student index from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const bookIndex = urlParams.get("bookIndex");
@@ -15,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <img src="${book.cover}" alt="">
             <div class="book-info">
                 <h2 class="book-title">${book.title}</h2>
+                <p class="book-category">${book.category}</p>             
                 <p class="book-author"> <span>Author :</span>${book.author.fullName}</p>
                 <p class="book-description">${book.description}</p>
                 <hr>
@@ -24,10 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
 
         bookSection.appendChild(card);
-      });      
+      });
   })
   .catch((error) => {
     console.error("Error fetching books:", error);
   });
-
-
