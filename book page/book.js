@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p class="book-description">${book.description}</p>
           <hr>
           <a href="${book.linkPDF}" target="_blank" class="readBtn"><i class="fa-brands fa-readme"></i> READ</a>
-          <a class="hear-icon"><i class="fa-regular fa-heart"></i></a>
+          <a class="hear-icon" data-book-index="${bookIndex}"><i class="fa-regular fa-heart"></i></a>
         </div>
       `;
 
@@ -40,18 +40,15 @@ document.addEventListener("DOMContentLoaded", () => {
       limitedRelatedBooks.forEach((relatedBook) => {
         const relatedCard = document.createElement("div");
         relatedCard.classList.add("highlights-card");
+        const relatedBookIndex = books.indexOf(relatedBook);
         relatedCard.innerHTML = `
-        <img src="${relatedBook.cover}" alt="${
-          relatedBook.title
-        }" class="related-image">
-        <div class="add-wishlist">
+        <img src="${relatedBook.cover}" alt="${relatedBook.title}" class="related-image">
+        <div class="add-wishlist" data-book-index="${relatedBookIndex}">
             <i class="fa-regular fa-heart"></i>
         </div>
         <h3 class="related-title">${relatedBook.title}</h3>
         <p class="related-author">${relatedBook.author.fullName}</p>
-        <a href="details.html?bookIndex=${books.indexOf(
-          relatedBook
-        )}" class="related-read-book" >Details</a>
+        <a href="details.html?bookIndex=${relatedBookIndex}" class="related-read-book">Details</a>
     `;
         relatedGrid.appendChild(relatedCard);
       });
@@ -60,8 +57,65 @@ document.addEventListener("DOMContentLoaded", () => {
       if (limitedRelatedBooks.length === 0) {
         relatedGrid.innerHTML = `<p>No related products found.</p>`;
       }
+
+      // Add event listeners for wishlist
+      addWishlistListeners(books);
     })
     .catch((error) => {
       console.error("Error fetching books:", error);
     });
 });
+
+
+function updateWishlistBadge() {
+  // Get wishlist from local storage
+  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  
+  // Update badge in the navigation
+  const wishlistBadge = document.querySelector('.nav-right .badge');
+  if (wishlistBadge) {
+    wishlistBadge.textContent = wishlist.length;
+  }
+}
+
+
+// Function to add wishlist event listeners
+function addWishlistListeners(books) {
+  // Select all heart icons
+  const wishlistIcons = document.querySelectorAll('.hear-icon, .add-wishlist');
+  
+  wishlistIcons.forEach(icon => {
+    icon.addEventListener('click', function() {
+
+      const bookIndex = this.getAttribute('data-book-index');
+      
+      // Retrieve existing wishlist from local storage
+      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      
+      // Check if the book is already in the wishlist
+      const isBookInWishlist = wishlist.some(book => book.index === bookIndex);
+      
+      if (!isBookInWishlist) {
+        // Add the book to wishlist
+        const bookToAdd = books[bookIndex];
+        wishlist.push({
+          index: bookIndex,
+          title: bookToAdd.title,
+          author: bookToAdd.author.fullName,
+          cover: bookToAdd.cover,
+          releaseDate : bookToAdd.releaseDate,
+        });
+        
+        // Save updated wishlist to local storage
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        updateWishlistBadge();
+        
+
+      } else {
+        alert('Book is in the list');
+      }
+    });
+  });
+}
+
+updateWishlistBadge();
