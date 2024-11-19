@@ -1,18 +1,17 @@
-// Initialize wishlist array from local storage or start with an empty array
 let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
 // Function to update the badge counter
 function updateWishlistCounter() {
     const badge = document.querySelector('.badge');
-    badge.textContent = wishlist.length; // Reflect the number of items in the wishlist
+    badge.textContent = wishlist.length; 
 }
 
 // Function to add a book to the wishlist
 function addToWishlist(book) {
     if (!wishlist.some(item => item.title === book.title)) {
-        wishlist.push(book); // Add the book to the wishlist array
-        localStorage.setItem('wishlist', JSON.stringify(wishlist)); // Save to local storage
-        updateWishlistCounter(); // Update the counter
+        wishlist.push(book); 
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        updateWishlistCounter();
     } else {
         alert(`${book.title} is already in your wishlist.`);
     }
@@ -21,9 +20,9 @@ function addToWishlist(book) {
 // Function to fetch books from `book.json`
 async function getBooks() {
     try {
-        const response = await fetch('book.json'); // Fetch book data
+        const response = await fetch('book.json'); 
         const data = await response.json();
-        return data.books; // Return the books array
+        return data.books;
     } catch (error) {
         console.error('Error fetching books:', error);
         return [];
@@ -33,7 +32,6 @@ async function getBooks() {
 // Function to display books dynamically in the grid
 async function displayBooks() {
     const bookGrid = document.querySelector(".book-grid");
-    // Get books from JSON file
     const books = await getBooks();
   
     bookGrid.innerHTML = "";
@@ -55,12 +53,12 @@ async function displayBooks() {
                   <h3 class="book-title">${book.title}</h3>
                   <p class="book-author">${book.author.fullName}</p>
                   
-                  <a class="read-book" href="./book page/details.html?bookIndex=${i}">Read Now</a>
+                  <a class="read-book" href="./book page/details.html?bookIndex=${i}">Details</a>
               </div>
           `);
     }
   
-    // Set innerHTML once with all the HTML
+
     bookGrid.innerHTML = htmlArray.join("");// Append each book card to the grid
  
 
