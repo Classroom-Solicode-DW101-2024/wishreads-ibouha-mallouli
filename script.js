@@ -62,9 +62,7 @@ function displayBooks(filteredBooks = null) {
 
       bookGrid.innerHTML = booksToShow.length ? booksToShow.map((book) => {
             // Find the original index of the book in the full books array
-            const originalIndex = books.findIndex(
-              (b) => b.title === book.title
-            );
+            const originalIndex = books.findIndex((b) => b.title === book.title);
             return `
                     <div class="book-card">
                         <img src="${book.cover}" class="book-image" alt="${book.title}">
@@ -82,12 +80,15 @@ function displayBooks(filteredBooks = null) {
                         <a class="read-book" href="./book page/details.html?bookIndex=${originalIndex}">Details</a>
                     </div>
                 `;
-          }) .join(""): "<p>No books found for your search .</p>";
+          }) .join("")  
+          
+          : "<p>No books found for your search .</p>";
 
       document.querySelectorAll(".hear-icon").forEach((icon) => {
+        // to check if the book is in wishlist
         const bookTitle = icon.dataset.title;
         updateHeartIconStyle(icon, isBookInWishlist(bookTitle));
-
+        // 
         icon.addEventListener("click", function () {
           const book = {
             title: icon.dataset.title,
@@ -116,8 +117,13 @@ function handleSearch() {
   localStorage.setItem("searchCategory", selectedCategory);
 
   // Redirect to index.html
-  window.location.href = "/";
+  if (window.location.pathname === "/book%20page/details.html" || window.location.pathname === "/MyWishReads/MyWishReads.html") {
+    window.location.href = "/";
+  } else {
+    window.location.href = window.location.pathname;
+  }
 }
+
 
 // Function to initialize the search functionality
 function initializeSearch() {
@@ -131,15 +137,12 @@ function initializeSearch() {
   const searchCategory = localStorage.getItem("searchCategory");
 
   if (searchTerm !== null || searchCategory !== null) {
-    getBooks()
-      .then((books) => {
+    getBooks().then((books) => {
         const filteredBooks = books.filter((book) => {
-          const matchesCategory =
-            searchCategory === "All" || book.catergoy === searchCategory;
+          const matchesCategory =searchCategory === "All" || book.catergoy === searchCategory;
           const matchesTitle = book.title.toLowerCase().includes(searchTerm);
           return matchesCategory && matchesTitle;
         });
-
         displayBooks(filteredBooks);
 
         // Clear search parameters from localStorage after use
