@@ -132,6 +132,7 @@ function addWishlistListeners(books) {
                   author: book.author.fullName,
                   cover: book.cover,
                   releaseDate: book.releaseDate,
+                  linkPDF: book.linkPDF
               };
               
               wishlist.push(bookToAdd);

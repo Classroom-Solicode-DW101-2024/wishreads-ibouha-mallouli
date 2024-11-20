@@ -75,7 +75,8 @@ function displayBooks() {
                         <div class="hear-icon" ${heartStyle}
                             data-title="${book.title}"
                             data-cover="${book.cover}"
-                            data-releasedate="${book.releaseDate}">
+                            data-releasedate="${book.releaseDate}"
+                            data-linkpdf="${book.linkPDF}"> 
                             <i class="fa-regular fa-heart"></i>
                         </div>
                         <h3 class="book-title">${book.title}</h3>
@@ -102,7 +103,8 @@ function displayBooks() {
                     const book = {
                         title: icon.dataset.title,
                         cover: icon.dataset.cover,
-                        releaseDate: icon.dataset.releasedate
+                        releaseDate: icon.dataset.releasedate,
+                        linkPDF: icon.dataset.linkpdf,
                     };
 
                     // Add the book to the wishlist
