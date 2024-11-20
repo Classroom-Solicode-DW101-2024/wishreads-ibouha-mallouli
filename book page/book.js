@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (limitedRelatedBooks.length === 0) {
         relatedGrid.innerHTML = `<p>No related products found.</p>`;
-      }
+   };
 
       // Add event listeners for adding/removing books from wishlist
       addWishlistListeners(books);
