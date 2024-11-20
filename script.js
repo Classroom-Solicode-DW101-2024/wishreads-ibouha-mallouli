@@ -3,18 +3,14 @@ let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 // Function to update the badge counter
 function updateWishlistCounter() {
   const badge = document.querySelector(".badge");
-  badge.textContent = wishlist.length;
+  if (badge) badge.textContent = wishlist.length;
 }
 
 // Function to check if a book is in wishlist
 function isBookInWishlist(bookTitle) {
-  for (let i = 0; i < wishlist.length; i++) {
-    if (wishlist[i].title === bookTitle) {
-      return true; // Book is in the wishlist
-    }
-  }
-  return false; // Book is not in the wishlist
+  return wishlist.some((book) => book.title === bookTitle);
 }
+
 // Function to update heart icon style
 function updateHeartIconStyle(icon, isInWishlist) {
   if (isInWishlist) {
@@ -47,87 +43,119 @@ async function getBooks() {
 }
 
 // Function to display books dynamically in the grid
-function displayBooks() {
-  // Select the container where the books will be displayed
+// Function to display books dynamically in the grid
+function displayBooks(filteredBooks = null) {
   const bookGrid = document.querySelector(".book-grid");
+  if (!bookGrid) return;
 
-  // Fetch books data
   getBooks()
-    .then(function (books) {
-      // Clear the current content of the book grid
-      bookGrid.innerHTML = "";
+    .then((books) => {
+      const booksToShow = filteredBooks || books;
 
-      // Use an array to store the generated HTML strings for better performance
-      const htmlArray = [];
+      bookGrid.innerHTML = booksToShow.length
+        ? booksToShow
+            .map((book) => {
+              // Find the original index of the book in the full books array
+              const originalIndex = books.findIndex(
+                (b) => b.title === book.title
+              );
 
-      // Loop through the books and generate the HTML for each book
-      for (let i = 0; i < books.length; i++) {
-        const book = books[i];
-        // Check if the book is already in the wishlist
-        const isInWishlist = isBookInWishlist(book.title);
-        // Set the style for the heart icon based on wishlist status
-        const heartStyle = isInWishlist
-          ? 'style="background: green; color: white;"'
-          : "";
-
-        // Push the HTML for the book card into the array
-        htmlArray.push(`
+              return `
                     <div class="book-card">
-                        <img src="${book.cover}" class="book-image" alt="${book.title}">
-                        <div class="hear-icon" ${heartStyle}
+                        <img src="${book.cover}" class="book-image" alt="${
+                book.title
+              }">
+                        <div class="hear-icon"
+                            style="${
+                              isBookInWishlist(book.title)
+                                ? "background: green; color: white;"
+                                : ""
+                            }"
                             data-title="${book.title}"
                             data-cover="${book.cover}"
                             data-releasedate="${book.releaseDate}"
-                            data-linkpdf="${book.linkPDF}"> 
+                            data-linkpdf="${book.linkPDF}">
                             <i class="fa-regular fa-heart"></i>
                         </div>
                         <h3 class="book-title">${book.title}</h3>
                         <p class="book-author">${book.author.fullName}</p>
                         <p class="book-release-date">${book.releaseDate}</p>
-                        <a class="read-book" href="./book page/details.html?bookIndex=${i}">Details</a>
+                        <a class="read-book" href="./book page/details.html?bookIndex=${originalIndex}">Details</a>
                     </div>
-                `);
-      }
+                `;
+            })
+            .join("")
+        : "<p>No books found for your search criteria.</p>";
 
-      // Update the book grid's innerHTML with the generated HTML
-      bookGrid.innerHTML = htmlArray.join("");
-
-      // Add click event listeners to the heart icons
-      document.querySelectorAll(".hear-icon").forEach(function (icon) {
-        // Get the book title from the dataset
+      document.querySelectorAll(".hear-icon").forEach((icon) => {
         const bookTitle = icon.dataset.title;
-
-        // Update the initial style of the heart icon based on wishlist status
         updateHeartIconStyle(icon, isBookInWishlist(bookTitle));
 
-        // Add a click event listener to the heart icon
         icon.addEventListener("click", function () {
-          // Create a book object from the icon's dataset attributes
           const book = {
             title: icon.dataset.title,
             cover: icon.dataset.cover,
             releaseDate: icon.dataset.releasedate,
             linkPDF: icon.dataset.linkpdf,
           };
-
-          // Add the book to the wishlist
           addToWishlist(book);
-
-          // Update the heart icon's style to indicate it has been added to the wishlist
           updateHeartIconStyle(icon, true);
         });
       });
     })
-    .catch(function (error) {
-      // Log any errors that occur while fetching or displaying books
-      console.error("Error displaying books:", error);
-    });
+    .catch((error) => console.error("Error displaying books:", error));
+}
+// Function to handle the search
+function handleSearch() {
+  const searchInput = document.querySelector(".search-input");
+  const categorySelect = document.querySelector(".category-select");
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  const selectedCategory = categorySelect.value;
+
+  // Save search term and category to localStorage
+  localStorage.setItem("searchTerm", searchTerm);
+  localStorage.setItem("searchCategory", selectedCategory);
+
+  // Redirect to index.html
+  window.location.href = "/";
+}
+
+// Function to initialize the search functionality
+function initializeSearch() {
+  const searchButton = document.querySelector(".search-button");
+  if (searchButton) {
+    searchButton.addEventListener("click", handleSearch);
+  }
+
+  // Check for search parameters on the index page
+  const searchTerm = localStorage.getItem("searchTerm");
+  const searchCategory = localStorage.getItem("searchCategory");
+
+  if (searchTerm !== null || searchCategory !== null) {
+    getBooks()
+      .then((books) => {
+        const filteredBooks = books.filter((book) => {
+          const matchesCategory =
+            searchCategory === "All" || book.category === searchCategory;
+          const matchesTitle = book.title.toLowerCase().includes(searchTerm);
+          return matchesCategory && matchesTitle;
+        });
+
+        displayBooks(filteredBooks);
+
+        // Clear search parameters from localStorage after use
+        localStorage.removeItem("searchTerm");
+        localStorage.removeItem("searchCategory");
+      })
+      .catch((error) => console.error("Error during search:", error));
+  } else {
+    // Display all books if no search parameters exist
+    displayBooks();
+  }
 }
 
 // Initialize everything when the page loads
 document.addEventListener("DOMContentLoaded", function () {
-  // Update the badge counter
   updateWishlistCounter();
-  // Fetch and display books
-  displayBooks();
+  initializeSearch();
 });
