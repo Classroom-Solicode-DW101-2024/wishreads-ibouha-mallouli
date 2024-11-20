@@ -5,28 +5,33 @@ document.addEventListener("DOMContentLoaded", function () {
   const bookIndex = urlParams.get("bookIndex");
 
   // Retrieve wishlist data from localStorage or initialize it as an empty array
-  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
   // Fetch the books data from the JSON file
   fetch("../book.json")
-      .then(function (response) {
-          return response.json();
-      })
-      .then(function (data) {
-          const books = data.books;
-          const book = books[bookIndex];
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      const books = data.books;
+      const book = books[bookIndex];
 
-          // Check if the current book is in the wishlist
-          const isInWishlist = wishlist.some(function (item) {
-              return item.title === book.title || (item.index !== undefined && item.index === bookIndex);
-          });
+      // Check if the current book is in the wishlist
+      const isInWishlist = wishlist.some(function (item) {
+        return (
+          item.title === book.title ||
+          (item.index !== undefined && item.index === bookIndex)
+        );
+      });
 
-          // Set style for the heart icon if the book is in the wishlist
-          const heartStyle = isInWishlist ? 'style="background: green; color: white;"' : '';
+      // Set style for the heart icon if the book is in the wishlist
+      const heartStyle = isInWishlist
+        ? 'style="background: green; color: white;"'
+        : "";
 
-          // Display the selected book details in the book section
-          const bookSection = document.querySelector(".book-section");
-          bookSection.innerHTML = `
+      // Display the selected book details in the book section
+      const bookSection = document.querySelector(".book-section");
+      bookSection.innerHTML = `
               <img src="${book.cover}" alt="${book.title}">
               <div class="book-info">
                   <h2 class="book-title">${book.title}</h2>
@@ -39,29 +44,38 @@ document.addEventListener("DOMContentLoaded", function () {
               </div>
           `;
 
-          // Filter out related books by the same category
-          const relatedBooks = books.filter(function (item, index) {
-              return item.catergoy === book.catergoy && index !== parseInt(bookIndex);
-          });
+      // Filter out related books by the same category
+      const relatedBooks = [];
+      books.forEach((item, index) => {
+        if (item.catergoy === book.catergoy && index !== parseInt(bookIndex)) {
+          relatedBooks.push(item);
+        }
+      });
 
-          // Limit the related books to 5 items
-          const limitedRelatedBooks = relatedBooks.slice(0, 5);
+      // Limit the related books to 5 items
+      const limitedRelatedBooks = relatedBooks.slice(0, 5);
 
-          // Display related books in the grid
-          const relatedGrid = document.querySelector(".highlights-grid");
-          relatedGrid.innerHTML = "";
+      // Display related books in the grid
+      const relatedGrid = document.querySelector(".highlights-grid");
+      relatedGrid.innerHTML = "";
 
-          limitedRelatedBooks.forEach(function (relatedBook) {
-              const relatedBookIndex = books.indexOf(relatedBook);
-              const isRelatedInWishlist = wishlist.some(function (item) {
-                  return item.title === relatedBook.title || (item.index !== undefined && item.index === relatedBookIndex.toString());
-              });
-              const relatedHeartStyle = isRelatedInWishlist ? 'style="background: green; color: white;"' : '';
+      limitedRelatedBooks.forEach(function (relatedBook) {
+        const relatedBookIndex = books.indexOf(relatedBook);
+        const isRelatedInWishlist = wishlist.some(function (item) {
+          return (
+            item.title === relatedBook.title ||
+            (item.index !== undefined &&
+              item.index === relatedBookIndex.toString())
+          );
+        });
+        const relatedHeartStyle = isRelatedInWishlist
+          ? 'style="background: green; color: white;"'
+          : "";
 
-              // Create the related book card and add it to the grid
-              const relatedCard = document.createElement("div");
-              relatedCard.classList.add("highlights-card");
-              relatedCard.innerHTML = `
+        // Create the related book card and add it to the grid
+        const relatedCard = document.createElement("div");
+        relatedCard.classList.add("highlights-card");
+        relatedCard.innerHTML = `
                   <img src="${relatedBook.cover}" alt="${relatedBook.title}" class="related-image">
                   <div class="add-wishlist" data-book-index="${relatedBookIndex}" ${relatedHeartStyle}>
                       <i class="fa-regular fa-heart"></i>
@@ -70,56 +84,64 @@ document.addEventListener("DOMContentLoaded", function () {
                   <p class="related-author">${relatedBook.author.fullName}</p>
                   <a href="details.html?bookIndex=${relatedBookIndex}" class="related-read-book">Details</a>
               `;
-              relatedGrid.appendChild(relatedCard);
-          });
-
-          if (limitedRelatedBooks.length === 0) {
-              relatedGrid.innerHTML = `<p>No related products found.</p>`;
-          }
-
-          // Add event listeners for adding/removing books from wishlist
-          addWishlistListeners(books);
-      })
-      .catch(function (error) {
-          console.error("Error fetching books:", error);
+        relatedGrid.appendChild(relatedCard);
       });
+
+      if (limitedRelatedBooks.length === 0) {
+        relatedGrid.innerHTML = `<p>No related products found.</p>`;
+      }
+
+      // Add event listeners for adding/removing books from wishlist
+      addWishlistListeners(books);
+    })
+    .catch(function (error) {
+      console.error("Error fetching books:", error);
+    });
 });
 
 // Function to update the wishlist badge with the number of items in the wishlist
 function updateWishlistBadge() {
-  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-  const wishlistBadge = document.querySelector('.nav-right .badge');
+  const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  const wishlistBadge = document.querySelector(".nav-right .badge");
   if (wishlistBadge) {
-      wishlistBadge.textContent = wishlist.length;
+    wishlistBadge.textContent = wishlist.length;
   }
 }
 
 // Function to check if a book is in the wishlist
 function isBookInWishlist(bookIndex, bookTitle) {
-  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-  return wishlist.some(function (item) {
-      return item.title === bookTitle || (item.index !== undefined && item.index === bookIndex);
-  });
+  const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  for (let i = 0; i < wishlist.length; i++) {
+    const item = wishlist[i];
+    if (
+      item.title === bookTitle ||
+      (item.index !== undefined && item.index === bookIndex)
+    ) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // Function to update the heart icon style when the book is added to the wishlist
 function updateHeartIconStyle(icon) {
-  icon.style.background = 'green';
-  icon.style.color = 'white';
+  icon.style.background = "green";
+  icon.style.color = "white";
 }
 
 // Function to add event listeners for the wishlist heart icons
 function addWishlistListeners(books) {
-  const wishlistIcons = document.querySelectorAll('.hear-icon, .add-wishlist');
-  
-  wishlistIcons.forEach(function (icon) {
-      const bookIndex = icon.getAttribute('data-book-index');
-      const book = books[bookIndex];
+  const wishlistIcons = document.querySelectorAll(".hear-icon, .add-wishlist");
 
-      // If the book is in the wishlist, update the heart icon style
-      if (isBookInWishlist(bookIndex, book.title)) {
-          updateHeartIconStyle(icon);
-      }
+  wishlistIcons.forEach(function (icon) {
+    const bookIndex = icon.getAttribute("data-book-index");
+    const book = books[bookIndex];
+
+    // If the book is in the wishlist, update the heart icon style
+    if (isBookInWishlist(bookIndex, book.title)) {
+      updateHeartIconStyle(icon);
+    }
 
       // Add click event to add/remove books from the wishlist
       icon.addEventListener('click', function () {
@@ -132,7 +154,6 @@ function addWishlistListeners(books) {
                   author: book.author.fullName,
                   cover: book.cover,
                   releaseDate: book.releaseDate,
-                  linkPDF: book.linkPDF
               };
               
               wishlist.push(bookToAdd);
