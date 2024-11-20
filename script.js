@@ -1,3 +1,4 @@
+// get wishlist from local storage
 let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
 // Function to update the badge counter
@@ -8,7 +9,12 @@ function updateWishlistCounter() {
 
 // Function to check if a book is in wishlist
 function isBookInWishlist(bookTitle) {
-  return wishlist.some((book) => book.title === bookTitle);
+  for (let i = 0; i < wishlist.length; i++) {
+    if (wishlist[i].title === bookTitle) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // Function to update heart icon style
@@ -35,42 +41,35 @@ async function getBooks() {
   try {
     const response = await fetch("book.json");
     const data = await response.json();
+    
+    // Return the 'books' array from the parsed data.
     return data.books;
   } catch (error) {
     console.error("Error fetching books:", error);
+    
     return [];
   }
 }
 
-// Function to display books dynamically in the grid
+
 // Function to display books dynamically in the grid
 function displayBooks(filteredBooks = null) {
   const bookGrid = document.querySelector(".book-grid");
   if (!bookGrid) return;
 
-  getBooks()
-    .then((books) => {
-      const booksToShow = filteredBooks || books;
+  getBooks().then((books) => {
+    const booksToShow = filteredBooks || books;
 
-      bookGrid.innerHTML = booksToShow.length
-        ? booksToShow
-            .map((book) => {
-              // Find the original index of the book in the full books array
-              const originalIndex = books.findIndex(
-                (b) => b.title === book.title
-              );
-
-              return `
+      bookGrid.innerHTML = booksToShow.length ? booksToShow.map((book) => {
+            // Find the original index of the book in the full books array
+            const originalIndex = books.findIndex(
+              (b) => b.title === book.title
+            );
+            return `
                     <div class="book-card">
-                        <img src="${book.cover}" class="book-image" alt="${
-                book.title
-              }">
+                        <img src="${book.cover}" class="book-image" alt="${book.title}">
                         <div class="hear-icon"
-                            style="${
-                              isBookInWishlist(book.title)
-                                ? "background: green; color: white;"
-                                : ""
-                            }"
+                            style="${isBookInWishlist(book.title)? "background: green; color: white;": ""}"
                             data-title="${book.title}"
                             data-cover="${book.cover}"
                             data-releasedate="${book.releaseDate}"
@@ -83,9 +82,7 @@ function displayBooks(filteredBooks = null) {
                         <a class="read-book" href="./book page/details.html?bookIndex=${originalIndex}">Details</a>
                     </div>
                 `;
-            })
-            .join("")
-        : "<p>No books found for your search criteria.</p>";
+          }) .join(""): "<p>No books found for your search .</p>";
 
       document.querySelectorAll(".hear-icon").forEach((icon) => {
         const bookTitle = icon.dataset.title;
@@ -105,6 +102,8 @@ function displayBooks(filteredBooks = null) {
     })
     .catch((error) => console.error("Error displaying books:", error));
 }
+
+
 // Function to handle the search
 function handleSearch() {
   const searchInput = document.querySelector(".search-input");
@@ -136,7 +135,7 @@ function initializeSearch() {
       .then((books) => {
         const filteredBooks = books.filter((book) => {
           const matchesCategory =
-            searchCategory === "All" || book.category === searchCategory;
+            searchCategory === "All" || book.catergoy === searchCategory;
           const matchesTitle = book.title.toLowerCase().includes(searchTerm);
           return matchesCategory && matchesTitle;
         });
