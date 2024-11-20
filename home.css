@@ -70,7 +70,7 @@
     margin-bottom: 30px;
     border-radius: 8px;
     padding: 10px;
-    padding-bottom: 80px;
+    padding-bottom: 50px;
     transition: box-shadow 0.3s ease; 
 }
 
@@ -99,13 +99,16 @@
 }
 
 .book-author {
-    color: #666;
-    align-items: center;
+    color: #027A36;
+    font-weight: bold;
+    text-align: center;
     font-family: "Manrope", sans-serif;
-    font-size: 11px;
+    font-size: 14px;
     margin-bottom: 5px;
-    margin-left: 30%;
-    text-decoration: underline;
+}
+.book-release-date{
+    text-align: center;
+
 }
 
 .book-image {  
@@ -133,6 +136,7 @@
     font-weight: 600;
     text-transform: uppercase;
     transition: background-color 0.3s ease;
+    text-decoration: none;
 }
 
 .book-card:hover .read-book,
