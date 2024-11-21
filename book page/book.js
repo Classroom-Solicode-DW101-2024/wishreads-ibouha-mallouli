@@ -68,9 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
               item.index === relatedBookIndex.toString())
           );
         });
-        const relatedHeartStyle = isRelatedInWishlist
-          ? 'style="background: green; color: white;"'
-          : "";
+        const relatedHeartStyle = isRelatedInWishlist? 'style="background: green; color: white;"': "";
 
         // Create the related book card and add it to the grid
         const relatedCard = document.createElement("div");
