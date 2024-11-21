@@ -108,14 +108,12 @@ document.addEventListener('DOMContentLoaded', function() {
  // Function to check if a book is in the wishlist
  function isBookInWishlist(bookTitle) {
   const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-
   for (let i = 0; i < wishlist.length; i++) {
       const item = wishlist[i];
       if (item && item.title === bookTitle) {
           return true;
       }
   }
-
   return false;
 }
 
