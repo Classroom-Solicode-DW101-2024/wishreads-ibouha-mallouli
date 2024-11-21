@@ -55,11 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
  
        limitedRelatedBooks.forEach(function (relatedBook) {
          const relatedBookIndex = books.indexOf(relatedBook);
-         //chekc if 
-         let isRelatedInWishlist = false;
+          // Check if the related book is already in the wishlist
+          let isRelatedInWishlist = false;
          for (let i = 0; i < wishlist.length; i++) {
              let item = wishlist[i];
-              if (item.title === relatedBook.title || item.index === relatedBookIndex.toString()) {
+              if (item.title === relatedBook.title || item.index === relatedBookIndex) {
                  isRelatedInWishlist = true;
                  break;
              }

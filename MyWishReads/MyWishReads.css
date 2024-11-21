@@ -61,12 +61,7 @@
     color: #666;
 }
 
-.vertical-divider {
-    width: 1px;
-    height: 135%;
-    background-color: #eee;
-    justify-self: center;
-}
+
 
 .button-group {
     display: flex;
