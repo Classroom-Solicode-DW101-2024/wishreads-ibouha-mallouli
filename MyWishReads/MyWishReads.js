@@ -44,10 +44,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="button-group">
                         <a class="read-btn" href="${
                           book.linkPDF
-                        }" target="_blank">Read</a>
+                        }" target="_blank">PDF</a>
                         <button class="readed-btn" data-index="${index}" style="background-color: ${
         isReaded ? "orange" : "yellow"
-      }">${isReaded ? "Readed" : "Finish"}</button>
+      }">${isReaded ? "Read" : "Finish"}</button>
                         <button class="delete-btn" data-index="${index}">DELETE</button>
                     </div>
                 </div>
