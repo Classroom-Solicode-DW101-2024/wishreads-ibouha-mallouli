@@ -5,13 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateWishlistCounter() {
     const badge = document.querySelector(".badge");
-    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || []; // Load wishlist from local storage
-    badge.textContent = wishlist.length; // Update badge with the wishlist count
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || []; 
+    badge.textContent = wishlist.length;
   }
 
   // Function to display wishlist items
   function displayWishlist() {
-    wishlistContainer.innerHTML = ""; // Clear the container
+    wishlistContainer.innerHTML = ""; 
 
     if (wishlist.length === 0) {
       wishlistContainer.innerHTML = `<p class="empty-message">Your wishlist is empty!</p>`;
@@ -45,14 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to delete a book from the wishlist
   function deleteBook(event) {
-    const bookIndex = event.target.dataset.index; // Get index from button
-    wishlist.splice(bookIndex, 1); // Remove the selected book from the array
-    localStorage.setItem("wishlist", JSON.stringify(wishlist)); // Update local storage
+    const bookIndex = event.target.dataset.index; 
+    wishlist.splice(bookIndex, 1); 
+    localStorage.setItem("wishlist", JSON.stringify(wishlist)); 
     displayWishlist();
     updateWishlistCounter();
-    // Refresh display
   }
 
-  // Display the wishlist on page load
+
   displayWishlist();
 });
