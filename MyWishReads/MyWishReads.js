@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="vertical-divider"></div>
                     <div class="button-group">
                         <a class="read-btn" href="${book.linkPDF}" target="_blank">Read</a>
-                        <button class="delete-btn" data-index="${index}">DELETE</button>
+                        <button class="delete-btn" data-index="${index}">READED</button>
                         <button class="delete-btn" data-index="${index}">DELETE</button>
                         
                     </div>
