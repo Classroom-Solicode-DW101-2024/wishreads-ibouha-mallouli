@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   const urlParams = new URLSearchParams(window.location.search);
   const bookIndex = urlParams.get('bookIndex');
-
   const wishlist = JSON.parse(localStorage.getItem("wishlist") || []);
 
   fetch("../book.json")
@@ -99,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
      wishlistBadge.textContent = wishlist.length;
    }
  }
- 
+
  function updateHeartIconStyle(icon) {
   icon.style.background = "green";
   icon.style.color = "white";
@@ -113,8 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (item && item.title === bookTitle) {
           return true;
       }
-  }
-  return false;
+  } return false;
 }
 
   
@@ -127,9 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let bookIndex = icon.getAttribute("data-book-index");
     let book = books[bookIndex];
 
-
-     // If the book is in the wishlist, update the heart icon style
-     if (isBookInWishlist( book.title)) {
+     if (isBookInWishlist(book.title)) {
        updateHeartIconStyle(icon);
      }
  
