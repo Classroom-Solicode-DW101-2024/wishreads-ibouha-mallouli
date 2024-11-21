@@ -43,9 +43,10 @@ function displayBook(book, bookIndex, wishlist) {
   `;
 
   
+  // Update the heart icon style
   const heartIcon = document.querySelector(".hear-icon");
-  if (heartIcon && isInWishlist) {
-    updateHeartIconStyle(heartIcon);
+  if (heartIcon) {
+    updateHeartIconStyle(heartIcon, isInWishlist);
   }
 }
 
@@ -76,8 +77,8 @@ function displayRelatedBooks(books, book, bookIndex, wishlist) {
     RelatedBooksHtml.appendChild(relatedCard);
 
     const heartIcon = relatedCard.querySelector(".add-wishlist");
-    if (heartIcon && isRelatedInWishlist) {
-      updateHeartIconStyle(heartIcon);
+    if (heartIcon) {
+      updateHeartIconStyle(heartIcon, isRelatedInWishlist);
     }
   });
 
@@ -106,9 +107,14 @@ function updateWishlistBadge() {
 }
 
 // function fo the add to wishlit icon style
-function updateHeartIconStyle(icon) {
-  icon.style.background = "green";
-  icon.style.color = "white";
+function updateHeartIconStyle(icon, isInWishlist) {
+  if (isInWishlist) {
+    icon.style.background = "green";
+    icon.style.color = "white";
+  } else {
+    icon.style.background = "";
+    icon.style.color = "";
+  }
 }
 
 function addWishlistListeners(books, wishlist) {
@@ -119,7 +125,7 @@ function addWishlistListeners(books, wishlist) {
     const book = books[bookIndex];
 
     if (checkIfInWishlist(book, wishlist)) {
-      updateHeartIconStyle(icon);
+      updateHeartIconStyle(icon, true);
     }
 
     icon.addEventListener('click', function () {

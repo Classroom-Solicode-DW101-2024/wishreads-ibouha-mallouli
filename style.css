@@ -72,8 +72,9 @@ i{
    font-size: 15px;
 }
 
+
 .logo img {
-    height: 40px;
+    height: 40px; /* Keeps the height of the logo image */
 }
 
 .search-container {
@@ -169,8 +170,10 @@ i{
 
        
 .nav-item {
-    position: relative;
-    color: #666;
+        position: fixed; /* or absolute, depending on your layout */
+        right: 9%; /* Aligns the nav item to the right */
+        top: 25px; /* Adjust this value to set the vertical position */
+        color: #666;
 }
 
 .nav-item i{
@@ -183,7 +186,7 @@ i{
 
 .nav-item .badge {
     position: absolute;
-    top: -15px;
+    top: -7px;
     right: -8px;
     background: #FF4B4B;
     color: white;

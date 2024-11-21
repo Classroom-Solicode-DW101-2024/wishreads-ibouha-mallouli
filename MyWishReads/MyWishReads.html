@@ -1,107 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <title>Bokifa - Book Store</title>
-    <link rel="stylesheet" href="MyWishReads.css" />
-    <link rel="stylesheet" href="../style.css" />
-  </head>
-  <body>
-    <!-- header -->
-    <header>
-      <nav class="nav-container">
-        <a href="/" class="logo">
-          <img src="../imgs/logo (1).svg" alt="Bokifa" />
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="icon" type="image/x-icon" sizes="32x32" href="/imgs/logo (1).svg" />
+  <title>Bokifa - Book Store</title>
+  <link rel="stylesheet" href="MyWishReads.css" />
+</head>
+
+<body>
+  <!-- header -->
+  <header>
+    <nav class="nav-container">
+      <a href="/" class="logo">
+        <img src="../imgs/logo (1).svg" alt="Bokifa" />
+      </a>
+
+
+      <div class="nav-right">
+        <a href="../MyWishReads/MyWishReads.html" class="nav-item">
+          <i class="fa-regular fa-heart"></i>
+          <span class="badge">0</span>
         </a>
+      </div>
+    </nav>
+  </header>
 
-        <div class="search-container">
-          <select class="category-select">
-            <option>All</option>
-            <option>Personal Finance</option>
-            <option>Self-Help</option>
-            <option>Investing</option>
-            <option>Productivity</option>
-            <option>Self-Improvement</option>
-        </select>
-          <input
-            type="text"
-            class="search-input"
-            placeholder="Search products..."
-          />
-          <button class="search-button">
-            <i class="fa-solid fa-magnifying-glass"></i>Search
-          </button>
+  <!--  wishlist  -->
+  <div id="emty_message"></div>
+  <div class="wishlist-container">
+    <h1 class="wishlist-title">Wishlist:</h1>
+    <div class="book-list"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="newsletter">
+          <h2>Stay in the know</h2>
+          <p>
+            Subscribe to our newsletter and stay updated on latest offers,
+            discounts and events near you.
+          </p>
         </div>
-
-        <div class="nav-right">
-          <a href="../MyWishReads/MyWishReads.html" class="nav-item">
-            <i class="fa-regular fa-heart"></i>
-            <span class="badge">0</span>
-          </a>
-        </div>
-      </nav>
-    </header>
-
-    <!--  wishlist  -->
-      <div id="emty_message"></div>
-    <div class="wishlist-container">
-        <h1 class="wishlist-title">Wishlist:</h1>
-        <div class="book-list"></div> 
-    </div>
-    
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="footer-top">
-          <div class="newsletter">
-            <h2>Stay in the know</h2>
-            <p>
-              Subscribe to our newsletter and stay updated on latest offers,
-              discounts and events near you.
-            </p>
-          </div>
-          <div class="subscribe-form">
-            <div class="input-container">
-              <input type="email" placeholder="Email id" class="email-input" />
-              <button class="subscribe-btn">Subscribe</button>
-            </div>
-          </div>
-          <div class="social-icons">
-            <a href="#" class="facebook"
-              ><i class="fa-brands fa-facebook" style="color: #0c7ed4"></i
-            ></a>
-            <a href="#" class="twitter"
-              ><i
-                class="fa-brands fa-square-x-twitter fa-sm"
-                style="color: #161717"
-              ></i
-            ></a>
-            <a href="#" class="instagram"
-              ><i class="fa-brands fa-instagram"></i
-            ></a>
+        <div class="subscribe-form">
+          <div class="input-container">
+            <input type="email" placeholder="Email id" class="email-input" />
+            <button class="subscribe-btn">Subscribe</button>
           </div>
         </div>
-        <div class="footer-bottom">
-          <p class="copyright">Copyright © 2024 Bokifa. All rights reserved</p>
+        <div class="social-icons">
+          <a href="#" class="facebook"><i class="fa-brands fa-facebook" style="color: #0c7ed4"></i></a>
+          <a href="#" class="twitter"><i class="fa-brands fa-square-x-twitter fa-sm" style="color: #161717"></i></a>
+          <a href="#" class="instagram"><i class="fa-brands fa-instagram"></i></a>
         </div>
       </div>
-    </footer>
+      <div class="footer-bottom">
+        <p class="copyright">Copyright © 2024 Bokifa. All rights reserved</p>
+      </div>
+    </div>
+  </footer>
 
-    <script src="MyWishReads.js"></script>
-    <script src="../script.js"></script>
-  </body>
+  <script src="MyWishReads.js"></script>
+  <script src="../script.js"></script>
+</body>
+
 </html>
