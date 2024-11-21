@@ -104,3 +104,15 @@
 .delete-btn:hover {
     background-color: #bb2d3b;
 }
+
+.readed-btn{
+    color: black;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+
+}
+

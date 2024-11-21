@@ -1,17 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
   const wishlistContainer = document.querySelector(".book-list");
-  const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  const wishlist = JSON.parse(localStorage.getItem("wishlist")) || []; // Get wishlist from local storage
+  const readedBooks = JSON.parse(localStorage.getItem("readedBooks")) || []; // Get readed books from local storage
   updateWishlistCounter();
 
+  // Function to update the wishlist counter badge
   function updateWishlistCounter() {
     const badge = document.querySelector(".badge");
-    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || []; 
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
     badge.textContent = wishlist.length;
   }
 
   // Function to display wishlist items
   function displayWishlist() {
-    wishlistContainer.innerHTML = ""; 
+    wishlistContainer.innerHTML = ""; // Clear the container before re-rendering
 
     if (wishlist.length === 0) {
       wishlistContainer.innerHTML = `<p class="empty-message">Your wishlist is empty!</p>`;
@@ -19,40 +21,93 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     wishlist.forEach((book, index) => {
+      // Check if the book is already in the readedBooks list
+      const isReaded = readedBooks.some(
+        (readedBook) => readedBook.title === book.title
+      );
+
+      // Generate the HTML for each book item
       const bookHTML = `
-                <div class="book-item">
-                    <img src="${book.cover}" alt="${book.title}" class="book-cover" />
+                <div class="book-item" style="background-color: ${
+                  isReaded ? "#c0dfc0" : "transparent"
+                }">
+                    <img src="${book.cover}" alt="${
+        book.title
+      }" class="book-cover" />
                     <div class="book-info">
                         <h3 class="book-title">${book.title}</h3>
-                        <span class="book-date">Released: ${book.releaseDate}</span>
+                        <span class="book-date">Released: ${
+                          book.releaseDate
+                        }</span>
                     </div>
                     <div class="vertical-divider"></div>
                     <div class="button-group">
-                        <a class="read-btn" href="${book.linkPDF}" target="_blank">Read</a>
-                        <button class="delete-btn" data-index="${index}">READED</button>
+                        <a class="read-btn" href="${
+                          book.linkPDF
+                        }" target="_blank">Read</a>
+                        <button class="readed-btn" data-index="${index}" style="background-color: ${
+        isReaded ? "orange" : "yellow"
+      }">${isReaded ? "Readed" : "Finish"}</button>
                         <button class="delete-btn" data-index="${index}">DELETE</button>
-                        
                     </div>
                 </div>
             `;
       wishlistContainer.innerHTML += bookHTML;
     });
 
-    // Attach event listeners to delete buttons
+    // Attach event listeners to buttons
     document.querySelectorAll(".delete-btn").forEach((button) => {
       button.addEventListener("click", deleteBook);
+    });
+
+    document.querySelectorAll(".readed-btn").forEach((button) => {
+      button.addEventListener("click", readedStatus);
     });
   }
 
   // Function to delete a book from the wishlist
   function deleteBook(event) {
-    const bookIndex = event.target.dataset.index; 
-    wishlist.splice(bookIndex, 1); 
-    localStorage.setItem("wishlist", JSON.stringify(wishlist)); 
+    const bookIndex = event.target.dataset.index;
+    const selectedBook = wishlist[bookIndex];
+
+    // Remove the book from the readedBooks list if it exists
+    const existingBookIndex = readedBooks.findIndex(
+      (readedBook) => readedBook.title === selectedBook.title
+    );
+
+    if (existingBookIndex !== -1) {
+      readedBooks.splice(existingBookIndex, 1);
+      localStorage.setItem("readedBooks", JSON.stringify(readedBooks));
+    }
+
+    wishlist.splice(bookIndex, 1);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
     displayWishlist();
     updateWishlistCounter();
   }
 
+  // Function to toggle the "Readed" status of a book
+  function readedStatus(event) {
+    const bookIndex = event.target.dataset.index;
+    const selectedBook = wishlist[bookIndex];
 
+    // Check if the book is already in the readedBooks list
+    const existingBookIndex = readedBooks.findIndex(
+      (readedBook) => readedBook.title === selectedBook.title
+    );
+
+    if (existingBookIndex !== -1) {
+      readedBooks.splice(existingBookIndex, 1);
+    } else {
+      readedBooks.push(selectedBook);
+    }
+
+    localStorage.setItem("readedBooks", JSON.stringify(readedBooks));
+
+    displayWishlist();
+  }
+
+  // Initial render of the wishlist
   displayWishlist();
 });
