@@ -25,9 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       // Set style for the heart icon if the book is in the wishlist
-      const heartStyle = isInWishlist
-        ? 'style="background: green; color: white;"'
-        : "";
+      const heartStyle = isInWishlist ? 'style="background: green; color: white;"': "";
 
       // Display the selected book details in the book section
       const bookSection = document.querySelector(".book-section");
@@ -107,14 +105,13 @@ function updateWishlistBadge() {
 }
 
 // Function to check if a book is in the wishlist
-function isBookInWishlist(bookIndex, bookTitle) {
+function isBookInWishlist( bookTitle) {
   const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
   for (let i = 0; i < wishlist.length; i++) {
     const item = wishlist[i];
     if (
-      item.title === bookTitle ||
-      (item.index !== undefined && item.index === bookIndex)
+      item.title === bookTitle
     ) {
       return true;
     }
@@ -147,7 +144,6 @@ function addWishlistListeners(books) {
           
           if (!isBookInWishlist(bookIndex, book.title)) {
               const bookToAdd = {
-                  index: bookIndex,
                   title: book.title,
                   author: book.author.fullName,
                   cover: book.cover,
