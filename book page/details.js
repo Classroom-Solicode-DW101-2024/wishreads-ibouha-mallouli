@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const urlParams = new URLSearchParams(window.location.search);
   const bookIndex = urlParams.get('bookIndex');
-  const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+  const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
   fetchBooks(bookIndex, wishlist);
 });
@@ -89,7 +89,7 @@ function displayRelatedBooks(books, book, bookIndex, wishlist) {
 
 // function to get the wishlist from the localstorage
 function getWishlist() {
-  return JSON.parse(localStorage.getItem("wishlist") || "[]");
+  return JSON.parse(localStorage.getItem("wishlist")) || [];
 }
 
 // function to check if the book is in the wishlist
