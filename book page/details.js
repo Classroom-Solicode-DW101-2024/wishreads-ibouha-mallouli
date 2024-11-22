@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
-  const bookIndex = urlParams.get('bookIndex');
+  const bookIndex = urlParams.get("bookIndex");
   const wishlist = JSON.parse(localStorage.getItem("wishlist") || []);
 
   fetchBooks(bookIndex, wishlist);
@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
 // function to fetch books from json
 function fetchBooks(bookIndex, wishlist) {
   fetch("../book.json")
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       const books = data.books;
       const book = books[bookIndex];
 
@@ -18,7 +18,7 @@ function fetchBooks(bookIndex, wishlist) {
       displayRelatedBooks(books, book, bookIndex, wishlist);
       addWishlistListeners(books, wishlist);
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("Error fetching books:", error);
     });
 }
@@ -26,7 +26,9 @@ function fetchBooks(bookIndex, wishlist) {
 // function to display book details
 function displayBook(book, bookIndex, wishlist) {
   const isInWishlist = checkIfInWishlist(book, wishlist);
-  const heartStyle = isInWishlist ? 'style="background: green; color: white;"' : "";
+  const heartStyle = isInWishlist
+    ? 'style="background: green; color: white;"'
+    : "";
 
   const bookSection = document.querySelector(".book-section");
   bookSection.innerHTML = `
@@ -42,7 +44,6 @@ function displayBook(book, bookIndex, wishlist) {
     </div>
   `;
 
-  
   // Update the heart icon style
   const heartIcon = document.querySelector(".hear-icon");
   if (heartIcon) {
@@ -50,9 +51,12 @@ function displayBook(book, bookIndex, wishlist) {
   }
 }
 
-// function to display the related books 
+// function to display the related books
 function displayRelatedBooks(books, book, bookIndex, wishlist) {
-  const relatedBooks = books.filter((item, index) => item.catergoy === book.catergoy && index !== parseInt(bookIndex));
+  const relatedBooks = books.filter(
+    (item, index) =>
+      item.catergoy === book.catergoy && index !== parseInt(bookIndex)
+  );
   const limitedRelatedBooks = relatedBooks.slice(0, 5);
 
   const RelatedBooksHtml = document.querySelector(".highlights-grid");
@@ -61,7 +65,9 @@ function displayRelatedBooks(books, book, bookIndex, wishlist) {
   limitedRelatedBooks.forEach((relatedBook, index) => {
     const relatedBookIndex = books.indexOf(relatedBook);
     const isRelatedInWishlist = checkIfInWishlist(relatedBook, wishlist);
-    const relatedHeartStyle = isRelatedInWishlist ? 'style="background: green; color: white;"' : "";
+    const relatedHeartStyle = isRelatedInWishlist
+      ? 'style="background: green; color: white;"'
+      : "";
 
     const relatedCard = document.createElement("div");
     relatedCard.classList.add("highlights-card");
@@ -94,7 +100,7 @@ function getWishlist() {
 
 // function to check if the book is in the wishlist
 function checkIfInWishlist(book, wishlist) {
-  return wishlist.some(item => item.title === book.title);
+  return wishlist.some((item) => item.title === book.title);
 }
 
 // function to update teh span of the badge
@@ -120,7 +126,7 @@ function updateHeartIconStyle(icon, isInWishlist) {
 function addWishlistListeners(books, wishlist) {
   const wishlistIcons = document.querySelectorAll(".hear-icon, .add-wishlist");
 
-  wishlistIcons.forEach(icon => {
+  wishlistIcons.forEach((icon) => {
     const bookIndex = icon.getAttribute("data-book-index");
     const book = books[bookIndex];
 
@@ -128,7 +134,7 @@ function addWishlistListeners(books, wishlist) {
       updateHeartIconStyle(icon, true);
     }
 
-    icon.addEventListener('click', function () {
+    icon.addEventListener("click", function () {
       let wishlist = getWishlist();
       handleWishlistToggle(book, wishlist, this);
     });
@@ -142,11 +148,11 @@ function handleWishlistToggle(book, wishlist, icon) {
       title: book.title,
       cover: book.cover,
       releaseDate: book.releaseDate,
-      linkPDF: book.linkPDF
+      linkPDF: book.linkPDF,
     };
 
     wishlist.push(bookToAdd);
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
     updateWishlistBadge();
 
     // Update the clicked icon's style
@@ -154,8 +160,8 @@ function handleWishlistToggle(book, wishlist, icon) {
     icon.style.color = "white";
   } else {
     // Remove book from wishlist
-    wishlist = wishlist.filter(item => item.title !== book.title);
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    wishlist = wishlist.filter((item) => item.title !== book.title);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
     updateWishlistBadge();
 
     // Reset the clicked icon's style

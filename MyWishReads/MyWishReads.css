@@ -18,6 +18,21 @@
     font-weight: normal;
 }
 
+.serachInWishlist{
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: #006940 solid 1px;
+    outline: none;
+    width: 400px;
+    transition: all 0.8s ease;
+
+}
+
+.serachInWishlist:focus{
+transform: scale(1.05);
+}
+
 .book-list {
     border: 1px solid #eee;
     border-radius: 4px;
@@ -45,7 +60,7 @@
 
 .book-info {
     display: flex;
-    flex-direction: column;
+    flex-direction: column;    
     gap: 8px;
 }
 
@@ -76,7 +91,10 @@
 }
 
 .read-btn {
+    display: flex;
+    align-items: center;
     background-color: #008450;
+    text-decoration: none;
     color: white;
     border: none;
     padding: 8px 24px;

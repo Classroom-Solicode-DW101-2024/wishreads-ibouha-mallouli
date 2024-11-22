@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const wishlistContainer = document.querySelector(".book-list");
+  const searchInput = document.querySelector(".serachInWishlist");
   const wishlist = JSON.parse(localStorage.getItem("wishlist")) || []; // Get wishlist from local storage
   const readedBooks = JSON.parse(localStorage.getItem("readedBooks")) || []; // Get readed books from local storage
   updateWishlistCounter();
@@ -12,15 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Function to display wishlist items
-  function displayWishlist() {
+  function displayWishlist(filteredBooks = null) {
     wishlistContainer.innerHTML = ""; // Clear the container before re-rendering
 
-    if (wishlist.length === 0) {
+    const booksToDisplay = filteredBooks || wishlist;
+
+    if (booksToDisplay.length === 0) {
       wishlistContainer.innerHTML = `<p class="empty-message">Your wishlist is empty!</p>`;
       return;
     }
 
-    wishlist.forEach((book, index) => {
+    booksToDisplay.forEach((book, index) => {
       // Check if the book is already in the readedBooks list
       const isReaded = readedBooks.some(
         (readedBook) => readedBook.title === book.title
@@ -39,6 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         <span class="book-date">Released: ${
                           book.releaseDate
                         }</span>
+                       <p class="book-author">By: ${book.author.fullName}</p>
+
                     </div>
                     <div class="vertical-divider"></div>
                     <div class="button-group">
@@ -47,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         }" target="_blank">PDF</a>
                         <button class="readed-btn" data-index="${index}" style="background-color: ${
         isReaded ? "orange" : "yellow"
-      }">${isReaded ? "Read" : "Finish"}</button>
+      }">${isReaded ? "Mark As Read" : "Finish"}</button>
                         <button class="delete-btn" data-index="${index}">DELETE</button>
                     </div>
                 </div>
@@ -107,6 +112,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     displayWishlist();
   }
+
+  function handleSearch() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+
+    if (searchTerm === "") {
+      // If search input is empty, show the full wishlist
+      displayWishlist();
+      return;
+    }
+
+    const filteredBooks = wishlist.filter(
+      (book) =>
+        book.title.toLowerCase().includes(searchTerm) ||
+        book.author.fullName.toLowerCase().includes(searchTerm)
+    );
+
+    displayWishlist(filteredBooks);
+  }
+
+  // Attach search event listener
+  searchInput.addEventListener("keyup", handleSearch);
 
   // Initial render of the wishlist
   displayWishlist();

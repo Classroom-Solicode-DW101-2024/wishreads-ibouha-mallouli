@@ -71,6 +71,7 @@ function displayBooks(filteredBooks = null) {
                               data-title="${book.title}"
                               data-cover="${book.cover}"
                               data-releasedate="${book.releaseDate}"
+                              data-author="${book.author.fullName}"
                               data-linkpdf="${book.linkPDF}">
                               <i class="fa-regular fa-heart"></i>
                           </div>
@@ -95,6 +96,9 @@ function displayBooks(filteredBooks = null) {
             cover: icon.dataset.cover,
             releaseDate: icon.dataset.releasedate,
             linkPDF: icon.dataset.linkpdf,
+            author: {
+              fullName: icon.dataset.author,
+            },
           };
           addToWishlist(book);
           updateHeartIconStyle(icon, true);
