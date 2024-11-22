@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
-  const bookIndex = urlParams.get('bookIndex');
+  const bookIndex = urlParams.get("bookIndex");
   const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-
 
   fetchBooks(bookIndex, wishlist);
 });
@@ -150,6 +149,9 @@ function handleWishlistToggle(book, wishlist, icon) {
       cover: book.cover,
       releaseDate: book.releaseDate,
       linkPDF: book.linkPDF,
+      author: {
+        fullName: book.author.fullName,
+      },
     };
 
     wishlist.push(bookToAdd);
