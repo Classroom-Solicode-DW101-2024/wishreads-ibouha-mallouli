@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
   const bookIndex = urlParams.get("bookIndex");
-  const wishlist = JSON.parse(localStorage.getItem("wishlist") || []);
+  const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
 
   fetchBooks(bookIndex, wishlist);
 });
